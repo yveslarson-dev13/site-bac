@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact - Bac-en-Poche</title>
+<style>
+body{font-family:Arial,sans-serif;background:#f5f5f5;margin:0;padding:20px}
+.container{max-width:600px;margin:40px auto;background:#fff;padding:30px;border-radius:15px;box-shadow:0 5px 20px rgba(0,0,0,0.1)}
+h1{text-align:center;color:#111}
+input,textarea{width:100%;padding:12px;margin:10px 0;border:1px solid #ddd;border-radius:8px;box-sizing:border-box}
+button{width:100%;padding:14px;background:#111;color:#fff;border:none;border-radius:8px;font-size:16px;cursor:pointer}
+.whatsapp{display:block;text-align:center;background:#25D366;color:#fff;padding:14px;border-radius:8px;text-decoration:none;margin-top:15px;font-weight:bold}
+.email{display:block;text-align:center;margin-top:15px;color:#333;text-decoration:none}
+.back{display:block;text-align:center;margin-top:20px;color:#777}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>Contacte-nous 📩</h1>
+<p style="text-align:center">Une question sur le BAC ? Envoie-nous un message.</p>
+
+<form name="contact" method="POST" data-netlify="true">
+<input type="text" name="nom" placeholder="Ton nom" required>
+<input type="email" name="email" placeholder="Ton email" required>
+<textarea name="message" rows="5" placeholder="Ton message..." required></textarea>
+<button type="submit">Envoyer le message</button>
+</form>
+
+<a class="whatsapp" href="https://wa.me/2250141972876" target="_blank">💬 Nous écrire sur WhatsApp</a>
+<a class="email" href="mailto:anonymousdev73@outlook.fr">📧 anonymousdev73@outlook.fr</a>
+<a class="back" href="index.html">← Retour à l'accueil</a>
+</div>
+</body>
+</html>
