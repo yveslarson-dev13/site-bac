@@ -175,9 +175,6 @@ body.light .menu button.active{
 </head>
 <body>
   <button id="themeBtn" onclick="switchTheme()">🌙 / ☀️</button>
-
-<h1 class="big-title">VA FALLOIR TAFFER SI TU VEUX LE BAC</h1>
-
 <!-- ⬇️ LE MENU ICI ⬇️ -->
 <div id="menu" class="menu"></div>
 
@@ -12618,8 +12615,98 @@ const CARTE_SUJETS_TOTAUX = {
 
 
 //===== RESTE =====
-
-const lecons=[DISSERTATION,DISSERTATION_FR,COMMENTAIRE_FR,RESUME_FR,HIST1,HIST2,HIST3,HIST4,HIST5,HIST6, HIST7, HIST8,GEO1,GEO2,GEO3,GEO4,GEO5,GEO6,GEO7,GEO8,GEO9, MATHS_LIMITES, MATHS_PROBABILITE, MATHS_DERIVABILITE, MATHS_PRIMITIVES, MATHS_LOGARITHME, MATHS_SUITE, MATHS_GEOMETRIE, MATHS_COMPLEXE, MATHS_TRIGONOMETRIE, PC_CINEMATIQUE,FR1,FR2,FR3,FR4,FR5,FR6,FR7,FR8, PC2, PC3, PC4, PC5, PC6, PC7, PC8, PC9, PC10, PC11, PC12, PC13, PC14, PC15, PC16, PC17, PH1, PH2, PH3, PH4, PH5, PH6, PH7, PH8, PH9,SUJET_MATHS_1,SUJET_MATHS_2,SUJET_MATHS_3,SUJET_FR_1,SUJET_FR_2,SUJET_FR_3,SUJET_GEO_1,SUJET_GEO_2,SUJET_GEO_3,SUJET_HIST_1,SUJET_HIST_2,SUJET_HIST_3,SUJET_ANGLAIS_1,SUJET_ANGLAIS_2,SUJET_ANGLAIS_3,SUJET_PC_1,SUJET_PC_2,SUJET_PC_3,SUJET_PHILO_1,SUJET_PHILO_2,SUJET_PHILO_3,OEUVRES_NEGRO_AFRICAINE,CITATIONS_PHILO,DATES_IMPORTANTES,ANGLAIS_EXPRESSIONS];
+<script>
+const lecons = [
+  {id:'dissertation', matiere:'HIST-GEO', titre:'Dissertation HG'},
+  {id:'dissertation-fr', matiere:'FRANCAIS', titre:'Dissertation FR'},
+  {id:'commentaire-fr', matiere:'FRANCAIS', titre:'Commentaire FR'},
+  {id:'resume-fr', matiere:'FRANCAIS', titre:'Résumé FR'},
+  {id:'hist1', matiere:'HIST-GEO', titre:'HIST 1'},
+  {id:'hist2', matiere:'HIST-GEO', titre:'HIST 2'},
+  {id:'hist3', matiere:'HIST-GEO', titre:'HIST 3'},
+  {id:'hist4', matiere:'HIST-GEO', titre:'HIST 4'},
+  {id:'hist5', matiere:'HIST-GEO', titre:'HIST 5'},
+  {id:'hist6', matiere:'HIST-GEO', titre:'HIST 6'},
+  {id:'hist7', matiere:'HIST-GEO', titre:'HIST 7'},
+  {id:'hist8', matiere:'HIST-GEO', titre:'HIST 8'},
+  {id:'geo1', matiere:'HIST-GEO', titre:'GEO 1'},
+  {id:'geo2', matiere:'HIST-GEO', titre:'GEO 2'},
+  {id:'geo3', matiere:'HIST-GEO', titre:'GEO 3'},
+  {id:'geo4', matiere:'HIST-GEO', titre:'GEO 4'},
+  {id:'geo5', matiere:'HIST-GEO', titre:'GEO 5'},
+  {id:'geo6', matiere:'HIST-GEO', titre:'GEO 6'},
+  {id:'geo7', matiere:'HIST-GEO', titre:'GEO 7'},
+  {id:'geo8', matiere:'HIST-GEO', titre:'GEO 8'},
+  {id:'geo9', matiere:'HIST-GEO', titre:'GEO 9'},
+  {id:'maths-limites', matiere:'MATHS', titre:'Limites'},
+  {id:'maths-proba', matiere:'MATHS', titre:'Probabilité'},
+  {id:'maths-deriv', matiere:'MATHS', titre:'Dérivabilité'},
+  {id:'maths-prim', matiere:'MATHS', titre:'Primitives'},
+  {id:'maths-log', matiere:'MATHS', titre:'Logarithme'},
+  {id:'maths-suite', matiere:'MATHS', titre:'Suites'},
+  {id:'maths-geo', matiere:'MATHS', titre:'Géométrie'},
+  {id:'maths-complexe', matiere:'MATHS', titre:'Complexes'},
+  {id:'maths-trigo', matiere:'MATHS', titre:'Trigonométrie'},
+  {id:'pc-cine', matiere:'PC', titre:'Cinématique'},
+  {id:'fr1', matiere:'FRANCAIS', titre:'FR 1'},
+  {id:'fr2', matiere:'FRANCAIS', titre:'FR 2'},
+  {id:'fr3', matiere:'FRANCAIS', titre:'FR 3'},
+  {id:'fr4', matiere:'FRANCAIS', titre:'FR 4'},
+  {id:'fr5', matiere:'FRANCAIS', titre:'FR 5'},
+  {id:'fr6', matiere:'FRANCAIS', titre:'FR 6'},
+  {id:'fr7', matiere:'FRANCAIS', titre:'FR 7'},
+  {id:'fr8', matiere:'FRANCAIS', titre:'FR 8'},
+  {id:'pc2', matiere:'PC', titre:'PC 2'},
+  {id:'pc3', matiere:'PC', titre:'PC 3'},
+  {id:'pc4', matiere:'PC', titre:'PC 4'},
+  {id:'pc5', matiere:'PC', titre:'PC 5'},
+  {id:'pc6', matiere:'PC', titre:'PC 6'},
+  {id:'pc7', matiere:'PC', titre:'PC 7'},
+  {id:'pc8', matiere:'PC', titre:'PC 8'},
+  {id:'pc9', matiere:'PC', titre:'PC 9'},
+  {id:'pc10', matiere:'PC', titre:'PC 10'},
+  {id:'pc11', matiere:'PC', titre:'PC 11'},
+  {id:'pc12', matiere:'PC', titre:'PC 12'},
+  {id:'pc13', matiere:'PC', titre:'PC 13'},
+  {id:'pc14', matiere:'PC', titre:'PC 14'},
+  {id:'pc15', matiere:'PC', titre:'PC 15'},
+  {id:'pc16', matiere:'PC', titre:'PC 16'},
+  {id:'pc17', matiere:'PC', titre:'PC 17'},
+  {id:'ph1', matiere:'PHILO', titre:'PH 1'},
+  {id:'ph2', matiere:'PHILO', titre:'PH 2'},
+  {id:'ph3', matiere:'PHILO', titre:'PH 3'},
+  {id:'ph4', matiere:'PHILO', titre:'PH 4'},
+  {id:'ph5', matiere:'PHILO', titre:'PH 5'},
+  {id:'ph6', matiere:'PHILO', titre:'PH 6'},
+  {id:'ph7', matiere:'PHILO', titre:'PH 7'},
+  {id:'ph8', matiere:'PHILO', titre:'PH 8'},
+  {id:'ph9', matiere:'PHILO', titre:'PH 9'},
+  {id:'sujet-maths-1', matiere:'SUJETS BAC', titre:'Sujet Maths 1'},
+  {id:'sujet-maths-2', matiere:'SUJETS BAC', titre:'Sujet Maths 2'},
+  {id:'sujet-maths-3', matiere:'SUJETS BAC', titre:'Sujet Maths 3'},
+  {id:'sujet-fr-1', matiere:'SUJETS BAC', titre:'Sujet FR 1'},
+  {id:'sujet-fr-2', matiere:'SUJETS BAC', titre:'Sujet FR 2'},
+  {id:'sujet-fr-3', matiere:'SUJETS BAC', titre:'Sujet FR 3'},
+  {id:'sujet-geo-1', matiere:'SUJETS BAC', titre:'Sujet Géo 1'},
+  {id:'sujet-geo-2', matiere:'SUJETS BAC', titre:'Sujet Géo 2'},
+  {id:'sujet-geo-3', matiere:'SUJETS BAC', titre:'Sujet Géo 3'},
+  {id:'sujet-hist-1', matiere:'SUJETS BAC', titre:'Sujet Hist 1'},
+  {id:'sujet-hist-2', matiere:'SUJETS BAC', titre:'Sujet Hist 2'},
+  {id:'sujet-hist-3', matiere:'SUJETS BAC', titre:'Sujet Hist 3'},
+  {id:'sujet-anglais-1', matiere:'SUJETS BAC', titre:'Sujet Anglais 1'},
+  {id:'sujet-anglais-2', matiere:'SUJETS BAC', titre:'Sujet Anglais 2'},
+  {id:'sujet-anglais-3', matiere:'SUJETS BAC', titre:'Sujet Anglais 3'},
+  {id:'sujet-pc-1', matiere:'SUJETS BAC', titre:'Sujet PC 1'},
+  {id:'sujet-pc-2', matiere:'SUJETS BAC', titre:'Sujet PC 2'},
+  {id:'sujet-pc-3', matiere:'SUJETS BAC', titre:'Sujet PC 3'},
+  {id:'sujet-philo-1', matiere:'SUJETS BAC', titre:'Sujet Philo 1'},
+  {id:'sujet-philo-2', matiere:'SUJETS BAC', titre:'Sujet Philo 2'},
+  {id:'sujet-philo-3', matiere:'SUJETS BAC', titre:'Sujet Philo 3'},
+  {id:'oeuvres', matiere:'FRANCAIS', titre:'Oeuvres Négro-Africaine'},
+  {id:'citations', matiere:'PHILO', titre:'Citations Philo'},
+  {id:'dates', matiere:'HIST-GEO', titre:'Dates Importantes'},
+  {id:'anglais-exp', matiere:'ANGLAIS', titre:'Anglais Expressions'},
+];
 
 // ===== RENDU =====
 <script>
@@ -12764,7 +12851,10 @@ function closeModal(){
 document.getElementById('myModal')?.addEventListener('click', function(e){
   if(e.target.id === 'myModal') closeModal();
 });
+
+  renderMenu();
 renderList();
+</script>
 </script>
 </body>
 </html>
