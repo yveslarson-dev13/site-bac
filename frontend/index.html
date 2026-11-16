@@ -174,28 +174,128 @@ body.light .menu button.active{
 </style>
 </head>
 <body>
-  <button id="themeBtn" onclick="switchTheme()">🌙 / ☀️</button>
-<!-- ⬇️ LE MENU ICI ⬇️ -->
+<button id="themeBtn" onclick="switchTheme()">🌙 / ☀️</button>
+
+<h1 class="big-title">VA FALLOIR TAFFER SI TU VEUX LE BAC</h1>
+<h1>📚 Terminale A-B-C-D</h1>
+<div class="sub">Dissertation HG + Dissertation FR + Commentaire + Résumé en haut — Histoire 1 à 5 — Géo / Français à recoller. Clique sur une carte.</div>
+
+<!-- LE MENU -->
 <div id="menu" class="menu"></div>
 
+<!-- LA LISTE, UNE SEULE FOIS -->
 <div id="list" class="grid"></div>
 
+<!-- LE MODAL -->
 <div id="myModal">
   <div class="modal-box">
     <button class="modal-close" onclick="closeModal()">✖</button>
     <div id="modalContent"></div>
   </div>
 </div>
-  <div id="list" class="grid"></div>
-  <h1 class="big-title">VA FALLOIR TAFFER SI TU VEUX LE BAC</h1>
-<h1>📚 Terminale A-B-C-D</h1>
-<div class="sub">Dissertation HG + Dissertation FR + Commentaire + Résumé en haut — Histoire 1 à 5 — Géo / Français à recoller. Clique sur une carte.</div>
-<div id="view"></div>
-  <div style="padding:20px; text-align:center;">
+
+<!-- LE FOOTER -->
+<div style="padding:20px; text-align:center;">
   <a href="index.html" style="color:#fff; margin:0 10px; text-decoration:none;">Accueil</a>
   <a href="contact.html" style="color:#fff; margin:0 10px; text-decoration:none;">Contact</a>
 </div>
 <script>
+const lecons = [
+  {id:'dissertation', matiere:'HIST-GEO', titre:'Dissertation HG'},
+  {id:'dissertation-fr', matiere:'FRANCAIS', titre:'Dissertation FR'},
+  {id:'commentaire-fr', matiere:'FRANCAIS', titre:'Commentaire FR'},
+  {id:'resume-fr', matiere:'FRANCAIS', titre:'Résumé FR'},
+  {id:'hist1', matiere:'HIST-GEO', titre:'HIST 1'},
+  {id:'hist2', matiere:'HIST-GEO', titre:'HIST 2'},
+  {id:'hist3', matiere:'HIST-GEO', titre:'HIST 3'},
+  {id:'hist4', matiere:'HIST-GEO', titre:'HIST 4'},
+  {id:'hist5', matiere:'HIST-GEO', titre:'HIST 5'},
+  {id:'hist6', matiere:'HIST-GEO', titre:'HIST 6'},
+  {id:'hist7', matiere:'HIST-GEO', titre:'HIST 7'},
+  {id:'hist8', matiere:'HIST-GEO', titre:'HIST 8'},
+  {id:'geo1', matiere:'HIST-GEO', titre:'GEO 1'},
+  {id:'geo2', matiere:'HIST-GEO', titre:'GEO 2'},
+  {id:'geo3', matiere:'HIST-GEO', titre:'GEO 3'},
+  {id:'geo4', matiere:'HIST-GEO', titre:'GEO 4'},
+  {id:'geo5', matiere:'HIST-GEO', titre:'GEO 5'},
+  {id:'geo6', matiere:'HIST-GEO', titre:'GEO 6'},
+  {id:'geo7', matiere:'HIST-GEO', titre:'GEO 7'},
+  {id:'geo8', matiere:'HIST-GEO', titre:'GEO 8'},
+  {id:'geo9', matiere:'HIST-GEO', titre:'GEO 9'},
+  {id:'maths-limites', matiere:'MATHS', titre:'Limites'},
+  {id:'maths-proba', matiere:'MATHS', titre:'Probabilité'},
+  {id:'maths-deriv', matiere:'MATHS', titre:'Dérivabilité'},
+  {id:'maths-prim', matiere:'MATHS', titre:'Primitives'},
+  {id:'maths-log', matiere:'MATHS', titre:'Logarithme'},
+  {id:'maths-suite', matiere:'MATHS', titre:'Suites'},
+  {id:'maths-geo', matiere:'MATHS', titre:'Géométrie'},
+  {id:'maths-complexe', matiere:'MATHS', titre:'Complexes'},
+  {id:'maths-trigo', matiere:'MATHS', titre:'Trigonométrie'},
+  {id:'pc-cine', matiere:'PC', titre:'Cinématique'},
+  {id:'fr1', matiere:'FRANCAIS', titre:'FR 1'},
+  {id:'fr2', matiere:'FRANCAIS', titre:'FR 2'},
+  {id:'fr3', matiere:'FRANCAIS', titre:'FR 3'},
+  {id:'fr4', matiere:'FRANCAIS', titre:'FR 4'},
+  {id:'fr5', matiere:'FRANCAIS', titre:'FR 5'},
+  {id:'fr6', matiere:'FRANCAIS', titre:'FR 6'},
+  {id:'fr7', matiere:'FRANCAIS', titre:'FR 7'},
+  {id:'fr8', matiere:'FRANCAIS', titre:'FR 8'},
+  {id:'pc2', matiere:'PC', titre:'PC 2'},
+  {id:'pc3', matiere:'PC', titre:'PC 3'},
+  {id:'pc4', matiere:'PC', titre:'PC 4'},
+  {id:'pc5', matiere:'PC', titre:'PC 5'},
+  {id:'pc6', matiere:'PC', titre:'PC 6'},
+  {id:'pc7', matiere:'PC', titre:'PC 7'},
+  {id:'pc8', matiere:'PC', titre:'PC 8'},
+  {id:'pc9', matiere:'PC', titre:'PC 9'},
+  {id:'pc10', matiere:'PC', titre:'PC 10'},
+  {id:'pc11', matiere:'PC', titre:'PC 11'},
+  {id:'pc12', matiere:'PC', titre:'PC 12'},
+  {id:'pc13', matiere:'PC', titre:'PC 13'},
+  {id:'pc14', matiere:'PC', titre:'PC 14'},
+  {id:'pc15', matiere:'PC', titre:'PC 15'},
+  {id:'pc16', matiere:'PC', titre:'PC 16'},
+  {id:'pc17', matiere:'PC', titre:'PC 17'},
+  {id:'ph1', matiere:'PHILO', titre:'PH 1'},
+  {id:'ph2', matiere:'PHILO', titre:'PH 2'},
+  {id:'ph3', matiere:'PHILO', titre:'PH 3'},
+  {id:'ph4', matiere:'PHILO', titre:'PH 4'},
+  {id:'ph5', matiere:'PHILO', titre:'PH 5'},
+  {id:'ph6', matiere:'PHILO', titre:'PH 6'},
+  {id:'ph7', matiere:'PHILO', titre:'PH 7'},
+  {id:'ph8', matiere:'PHILO', titre:'PH 8'},
+  {id:'ph9', matiere:'PHILO', titre:'PH 9'},
+  {id:'sujet-maths-1', matiere:'SUJETS BAC', titre:'Sujet Maths 1'},
+  {id:'sujet-maths-2', matiere:'SUJETS BAC', titre:'Sujet Maths 2'},
+  {id:'sujet-maths-3', matiere:'SUJETS BAC', titre:'Sujet Maths 3'},
+  {id:'sujet-fr-1', matiere:'SUJETS BAC', titre:'Sujet FR 1'},
+  {id:'sujet-fr-2', matiere:'SUJETS BAC', titre:'Sujet FR 2'},
+  {id:'sujet-fr-3', matiere:'SUJETS BAC', titre:'Sujet FR 3'},
+  {id:'sujet-geo-1', matiere:'SUJETS BAC', titre:'Sujet Géo 1'},
+  {id:'sujet-geo-2', matiere:'SUJETS BAC', titre:'Sujet Géo 2'},
+  {id:'sujet-geo-3', matiere:'SUJETS BAC', titre:'Sujet Géo 3'},
+  {id:'sujet-hist-1', matiere:'SUJETS BAC', titre:'Sujet Hist 1'},
+  {id:'sujet-hist-2', matiere:'SUJETS BAC', titre:'Sujet Hist 2'},
+  {id:'sujet-hist-3', matiere:'SUJETS BAC', titre:'Sujet Hist 3'},
+  {id:'sujet-anglais-1', matiere:'SUJETS BAC', titre:'Sujet Anglais 1'},
+  {id:'sujet-anglais-2', matiere:'SUJETS BAC', titre:'Sujet Anglais 2'},
+  {id:'sujet-anglais-3', matiere:'SUJETS BAC', titre:'Sujet Anglais 3'},
+  {id:'sujet-pc-1', matiere:'SUJETS BAC', titre:'Sujet PC 1'},
+  {id:'sujet-pc-2', matiere:'SUJETS BAC', titre:'Sujet PC 2'},
+  {id:'sujet-pc-3', matiere:'SUJETS BAC', titre:'Sujet PC 3'},
+  {id:'sujet-philo-1', matiere:'SUJETS BAC', titre:'Sujet Philo 1'},
+  {id:'sujet-philo-2', matiere:'SUJETS BAC', titre:'Sujet Philo 2'},
+  {id:'sujet-philo-3', matiere:'SUJETS BAC', titre:'Sujet Philo 3'},
+  {id:'oeuvres', matiere:'FRANCAIS', titre:'Oeuvres Négro-Africaine'},
+  {id:'citations', matiere:'PHILO', titre:'Citations Philo'},
+  {id:'dates', matiere:'HIST-GEO', titre:'Dates Importantes'},
+  {id:'anglais-exp', matiere:'ANGLAIS', titre:'Anglais Expressions'},
+];
+  </script>
+<div>
+  <a href="index.html" style="color:#fff; margin:0 10px; text-decoration:none;">Accueil</a>
+  <a href="contact.html" style="color:#fff; margin:0 10px; text-decoration:none;">Contact</a>
+</div>
 // ===== DISSERTATION HISTOIRE-GÉO =====
 const DISSERTATION={id:"dissertation",matiere:"Méthode",titre:"DISSERTATION — Histoire & Géographie",
 pourquoi:`<h3>LA MÉTHODOLOGIE À RESPECTER</h3><div class="metho"><b>Au Bac, 20 points : Méthode 8 / Connaissances 8 / Argumentation 4.</b></div><p><b>Durée : 2h.</b> 1. Brouillon 30 min (mots-clés, problématique, plan) 2. Intro 4 étapes (Accroche + Définition + Problématique + Annonce) 3. Développement 1h (1 idée + arguments + exemples précis) 4. Conclusion (réponse + bilan + ouverture) 5. Relecture.</p>`,
@@ -12707,16 +12807,13 @@ const lecons = [
   {id:'dates', matiere:'HIST-GEO', titre:'Dates Importantes'},
   {id:'anglais-exp', matiere:'ANGLAIS', titre:'Anglais Expressions'},
 ];
-
+</script>
 // ===== RENDU =====
 <script>
-<script>
 const list = document.getElementById('list');
-
 let filtreActif = 'TOUT';
 
 function renderMenu(){
-  // On récupère toutes les matières qui existent dans tes lecons
   const matieres = ['TOUT', ...new Set(lecons.map(c => c.matiere))];
   document.getElementById('menu').innerHTML = matieres.map(m => 
     `<button class="${m === filtreActif ? 'active' : ''}" onclick="filtrer('${m}')">${m === 'TOUT' ? '📚 TOUT' : m}</button>`
@@ -12730,11 +12827,9 @@ function filtrer(matiere){
 }
 
 function renderList(){
-  // On filtre avant d'afficher
   const aAfficher = lecons.map((c,i) => ({c, i})).filter(({c}) => 
     filtreActif === 'TOUT' || c.matiere === filtreActif
   );
-
   list.innerHTML = aAfficher.map(({c,i})=>{
     let cls = '';
     let badge = 'OUVRIR';
@@ -12837,7 +12932,6 @@ function verifRep(i, idx){
   document.getElementById(`corr-${i}-${idx}`).style.display = 'block';
 }
 
-// --- FIN : UNE SEULE FOIS ---
 function switchTheme(){
   document.body.classList.toggle('light');
   localStorage.setItem('theme', document.body.classList.contains('light') ? 'light' : 'dark');
@@ -12851,13 +12945,8 @@ function closeModal(){
 document.getElementById('myModal')?.addEventListener('click', function(e){
   if(e.target.id === 'myModal') closeModal();
 });
-
-  renderMenu();
+renderMenu();
 renderList();
-</script>
-</script>
-</body>
-</html>
 </script>
 <footer class="footer">
   <div class="footer-line"></div>
@@ -12865,7 +12954,7 @@ renderList();
   <p class="footer-small">Terminale A - B - C - D • Histoire • Géographie • Français</p>
   <p class="footer-dev">Développé par <span>ANONYMOUSDEV🔥</span></p>
   <p class="footer-copy">© 2026 ANONYMOUSDEV — Tous droits réservés.</p>
-</footer
+  </footer>
   <div id="myModal">
   <div class="modal-box">
     <button class="modal-close" onclick="closeModal()">✖</button>
