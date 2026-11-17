@@ -12813,6 +12813,7 @@ const lecons = [
 // ===== RENDU =====
 <script>
 const list = document.getElementById('list');
+  view=document.getElementById('view');
 let filtreActif = 'TOUT';
 
 function renderMenu(){
@@ -12829,28 +12830,24 @@ function filtrer(matiere){
 }
 
 function renderList(){
-  const aAfficher = lecons.map((c,i) => ({c, i})).filter(({c}) => 
-    filtreActif === 'TOUT' || c.matiere === filtreActif
-  );
-  list.innerHTML = aAfficher.map(({c,i})=>{
-    let cls = '';
-    let badge = 'OUVRIR';
-    let desc = (c.sujets && c.sujets.length) ? c.sujets.length + ' sujets • ' + (c.citations?.length || 0) + ' citations • ' + (c.expressions?.length || 0) + ' expressions' : 'fait juste un effort';
+  list.innerHTML=lecons.map((c,i)=>{
+    let desc = (c.sujets && c.sujets.length) ? c.sujets.length + ' sujets • ' + (c.citations?.length || c.citations?.total || 0) + ' citations • ' + (c.expressions?.length || c.expressions?.total || 0) + ' expressions' : 'fait juste un effort';
     if(c.id==='dissertation'){cls='dissert'; badge='DISSERTATION HG 📝'; desc='6 sujets • Méthodo HG • Grande case';}
     if(c.id==='dissertation-fr'){cls='dissert-fr'; badge='DISSERTATION FR 🇫🇷'; desc='6 sujets • Méthodo FR • Citations';}
     if(c.id==='commentaire-fr'){cls='commentaire'; badge='COMMENTAIRE 💬'; desc='4 textes • Méthodo • Citations du texte';}
-    if(c.id==='resume-fr'){cls='resume'; badge='RÉSUMÉ ✂️'; desc='4 textes • Méthodo • Compte de mots';}
-    if(c.sujets && c.sujets.length) {cls+=' stub'; badge='STUB';}
-    return `<div class="card ${cls}" onclick="openCours(${i})"><b>${c.matiere} — ${c.titre}</b><br><span>${desc}</span><br><span class="badge">${badge}</span></div>`;
+    if(c.id==='resume-fr'){cls='resume'; badge='RÉSUMÉ '; desc='4textes • Méthodo • Compte de mots';}
+   if(c.sujets && c.sujets.length) {cls+=' stub'; badge='STUB';}
+    return <div class="card ${cls}" onclick="openCours(${i})"><b>${c.matiere} — ${c.titre}</b><br><span>${desc}</span><br><span class="badge">${badge}</span></div>;
   }).join('');
 }
-
+  
 function voirCorrection(btn){
   const card = btn.closest('.card');
   const corr = card.querySelector('.bloc-correction');
   if(corr) corr.style.display = 'block';
   btn.style.display = 'none';
 }
+
 
 function affiche(v){
   if(v === null || v === undefined) return '';
@@ -12865,7 +12862,7 @@ function affiche(v){
     return keys.map(k => {
       if(k === 'zoneUtilisateur'){
         return '<div style="margin-top:16px"><b>✍️ Ta réponse :</b><br><textarea placeholder="Écris ta réponse ici, sans regarder la correction..." style="width:100%;min-height:120px;padding:10px;border-radius:10px;border:1px solid #ccc;margin-top:6px"></textarea><br><button onclick="voirCorrection(this)" style="background:#1a3a6a;color:#fff;border:none;padding:10px 16px;border-radius:8px;cursor:pointer;margin-top:8px">✅ J\'ai terminé, voir la correction</button></div>';
-      }
+     }
       if(k === 'correction'){
         return '<div class="bloc-correction" style="display:none;margin-top:16px;border:2px solid #1a3a6a;border-radius:12px;padding:14px;background:#f0f4ff"><b>📝 Correction :</b><br>' + affiche(v[k]) + '</div>';
       }
@@ -12873,12 +12870,16 @@ function affiche(v){
     }).join('');
   }
   return String(v);
-}
-
+}    
+ 
 function openCours(i){
   const c = typeof i === 'number' ? lecons[i] : lecons.find(x => x.id === i);
   if(!c) return;
-  let html = '<h2>' + (c.titre || c.matiere || i) + '</h2>';
+  view.style.display='block';
+
+  let html = '<button class="back" onclick="document.getElementById(\'view\').style.display=\'none\'">← Retour</button>';
+  html += '<h2>' + (c.titre || c.matiere || i) + '</h2>';
+
   Object.keys(c).forEach(k => {
     if(k === 'id' || k === 'titre' || k === 'matiere') return;
     const v = c[k];
@@ -12889,16 +12890,17 @@ function openCours(i){
     } else if(Array.isArray(v)){
       html += v.map(item => '<div class="card">' + affiche(item) + '</div>').join('');
     } else {
-      html += '<div class="card">' + affiche(v) + '</div>';
+html += '<div class="card">' + affiche(v) + '</div>';
     }
   });
-  document.getElementById('modalContent').innerHTML = html;
-  document.getElementById('myModal').style.display = 'flex';
+
+  view.innerHTML = html;
+  window.scrollTo({top: view.offsetTop, behavior:'smooth'});
 }
 
 function verifRep(i, idx){
-  const txt = document.getElementById(`rep-${i}-${idx}`).value.trim();
-  const feed = document.getElementById(`feed-${i}-${idx}`);
+  const txt = document.getElementById(rep-${i}-${idx}).value.trim();
+  const feed = document.getElementById(feed-${i}-${idx});
   const isBig = ['dissertation','dissertation-fr','commentaire-fr','resume-fr'].includes(lecons[i].id);
   const isResume = lecons[i].id==='resume-fr';
   const isComment = lecons[i].id==='commentaire-fr';
@@ -12915,7 +12917,7 @@ function verifRep(i, idx){
       else if(!txt.toLowerCase().includes('mots')){ feed.textContent = "⚠️ Bien ("+mots+" mots), mais n'oublie pas d'écrire à la fin : 'Nombre de mots : "+mots+"'."; feed.style.color = "#d97706"; }
       else { feed.textContent = "✅ Bien ! "+mots+" mots, fidèle, sans avis. Compare avec la correction."; feed.style.color = "#16a34a"; }
     } else if(isComment){
-      if(mots < 100){ feed.textContent = "⚠️ Trop court ("+mots+" mots). Un commentaire c'est 400-600 mots : Intro + 2-3 axes + Conclusion."; feed.style.color = "#d97706"; }
+      if(mots < 100){ feed.textContent=  "⚠️ Trop court ("+mots+" mots). Un commentaire c'est 400-600 mots : Intro + 2-3 axes + Conclusion."; feed.style.color = "#d97706"; }
       else if(!hasCitation){ feed.textContent = "⚠️ Tu as "+mots+" mots mais AUCUNE citation du texte entre guillemets. Rajoute des citations + analyse."; feed.style.color = "#d97706"; }
       else if(!hasConclu){ feed.textContent = "⚠️ Bien, citations présentes. Il te manque la conclusion."; feed.style.color = "#d97706"; }
       else { feed.textContent = "✅ Très bien ! "+mots+" mots, citations + conclusion. Compare avec le plan."; feed.style.color = "#16a34a"; }
@@ -12931,9 +12933,11 @@ function verifRep(i, idx){
     feed.textContent = "✅ Réponse enregistrée, compare avec la correction.";
     feed.style.color = "#16a34a";
   }
-  document.getElementById(`corr-${i}-${idx}`).style.display = 'block';
+  document.getElementById(corr-${i}-${idx}).style.display = 'block';
 }
+renderList();
 
+                     
 function switchTheme(){
   document.body.classList.toggle('light');
   localStorage.setItem('theme', document.body.classList.contains('light') ? 'light' : 'dark');
