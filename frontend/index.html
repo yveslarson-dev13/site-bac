@@ -12650,40 +12650,40 @@ function renderList(){
   }).join('');
 } 
 
-function voirCorrection(btn){
-  const card = btn.closest('.card');
-  const corr = card.querySelector('.bloc-correction');
-  if(corr) corr.style.display = 'block';
-  btn.style.display = 'none';
+function affiche(item, i, idx){
+  // Si l'exo est juste du texte, on le transforme en objet
+  if(typeof item === 'string'){
+    item = { sujet: item, correction: '' };
+  }
+  if(!item || typeof item !== 'object') return '';
+
+  // On cherche le texte de l'exo dans tous les noms possibles
+  const texte = item.sujet || item.enonce || item.question || item.exercice || item.consigne || item.titre || '';
+  // On cherche la correction dans tous les noms possibles
+  const corr = item.correction || item.corrige || item.reponse || item.solution || '';
+
+  let h = '';
+  if(texte) h += '<p><b>' + texte + '</b></p>';
+  // Si l'exo a d'autres infos (ex: cours, exemple), on les affiche
+  Object.keys(item).forEach(k => {
+    if(['sujet','enonce','question','exercice','consigne','titre','correction','corrige','reponse','solution','id'].includes(k)) return;
+    if(item[k]) h += '<p>' + item[k] + '</p>';
+  });
+
+  // LA ZONE POUR TRAITER L'EXO + LES 2 BOUTONS, TOUJOURS AFFICHÉS
+  h += '<textarea id="rep-' + i + '-' + idx + '" placeholder="Écris ta réponse ici..." style="width:100%;min-height:100px;padding:10px;border-radius:8px;border:1px solid #ccc"></textarea>';
+  h += '<div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap">';
+  h += '<button onclick="verifRep(' + i + ',' + idx + ')" style="padding:8px 12px;border-radius:8px;background:#16a34a;color:white;border:none;cursor:pointer">✅ Vérifier mon exo</button>';
+  h += '<button onclick="voirCorrection(' + i + ',' + idx + ')" style="padding:8px 12px;border-radius:8px;background:#2563eb;color:white;border:none;cursor:pointer">👀 Voir la correction</button>';
+  h += '</div>';
+  h += '<div id="feed-' + i + '-' + idx + '" style="margin-top:8px;font-weight:bold"></div>';
+  h += '<div id="corr-' + i + '-' + idx + '" style="display:none;margin-top:10px;padding:10px;background:#f0fdf4;border-radius:8px">' + (corr ? '<b>Correction :</b><br>' + corr : '<i>Pas de correction pour cet exo pour le moment.</i>') + '</div>';
+  return h;
 }
 
-function affiche(v, i, idx){
-  if(v === null || v === undefined) return '';
-  if(typeof v === 'string') return v;
-  if(Array.isArray(v)) return v.map(x => affiche(x, i, idx)).join('');
-  if(typeof v === 'object'){
-    const keys = Object.keys(v).sort((a,b) => {
-      if(a === 'zoneUtilisateur') return 1;
-      if(b === 'zoneUtilisateur') return -1;
-      return 0;
-    });
-    return keys.map(k => {
-      if(k === 'zoneUtilisateur'){
-        // ICI C'EST LE FIX : on donne un vrai id à la case, au feedback, et à la correction
-        // pour que verifRep puisse les retrouver
-        const idRep = `rep-${i}-${idx}`;
-        const idFeed = `feed-${i}-${idx}`;
-        const idCorr = `corr-${i}-${idx}`;
-        return '<div style="margin-top:16px"><b>✍️ Ta réponse :</b><br><textarea id="'+idRep+'" placeholder="Écris ta réponse ici, sans regarder la correction..." style="width:100%;min-height:120px;padding:10px;border-radius:10px;border:1px solid #ccc;margin-top:6px"></textarea><div id="'+idFeed+'" style="margin-top:6px;font-weight:bold"></div><br><button onclick="verifRep('+i+','+idx+')" style="background:#1a3a6a;color:#fff;border:none;padding:10px 16px;border-radius:8px;cursor:pointer;margin-top:8px">✅ Vérifier ma réponse</button><button onclick="voirCorrection(this)" style="background:#fff;color:#1a3a6a;border:1px solid #1a3a6a;padding:10px 16px;border-radius:8px;cursor:pointer;margin-top:8px;margin-left:8px">👀 Voir la correction</button></div>';
-      }
-      if(k === 'correction'){
-        const idCorr = `corr-${i}-${idx}`;
-        return '<div id="'+idCorr+'" class="bloc-correction" style="display:none;margin-top:16px;border:2px solid #1a3a6a;border-radius:12px;padding:14px;background:#f0f4ff"><b>📝 Correction :</b><br>' + affiche(v[k], i, idx) + '</div>';
-      }
-      return '<div style="margin-bottom:8px"><b>' + k + ' : </b>' + affiche(v[k], i, idx) + '</div>';
-    }).join('');
-  }
-  return String(v);
+function voirCorrection(i, idx){
+  const el = document.getElementById('corr-' + i + '-' + idx);
+  if(el) el.style.display = el.style.display === 'none' ? 'block' : 'none';
 }
 
   function openCours(i){
