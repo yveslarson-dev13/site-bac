@@ -4,7 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Terminale - Histoire - Projet Final</title>
-<style>
+
+  <style>
 *{box-sizing:border-box}
 :root{
   --bg:#0f2040;
@@ -75,10 +76,10 @@ body.light .card.resume{background:#FFF9D6 !important;}
 body.light .card.histoire{background:#FFF0E3 !important;}
 body.light .card.geo{background:#E8F0FF !important;}
 
-/* ===== ANCIENNE VIEW - ON GARDE MAIS CACHÉE ===== */
-#view{display:none;background:#FFF9E9;color:#111;border-radius:16px;padding:16px;margin-top:14px}
+/* ===== VIEW - CORRIGÉ : BLANC CASSÉ ===== */
+#view{display:none;background:#fdfbf7;color:#111;border-radius:16px;padding:16px;margin-top:14px}
 #view h2{margin:0 0 8px;color:#1a3a6a}
-#view h3{margin-top:18px;color:#1a3a6a;border-bottom:2px solid #f0d9b5;padding-bottom:5px}
+#view h3{margin-top:18px;color:#1a3a6a;border-bottom:2px solid #e7e0d0;padding-bottom:5px}
 .def{background:#eef2ff;border-left:4px solid #6366f1;padding:10px;border-radius:8px;margin:10px 0}
 .exemple{background:#fef9c3;border-left:4px solid #eab308;padding:10px;border-radius:8px;margin:10px 0}
 .situation{background:#ecfeff;border-left:4px solid #06b6d4;padding:10px;border-radius:8px;margin:10px 0}
@@ -86,13 +87,13 @@ body.light .card.geo{background:#E8F0FF !important;}
 .metho-fr{background:#ede9fe;border-left:4px solid #8b5cf6;padding:12px;border-radius:8px;margin:10px 0}
 .metho-com{background:#fdf2f8;border-left:4px solid #ec4899;padding:12px;border-radius:8px;margin:10px 0}
 .metho-res{background:#f0f9ff;border-left:4px solid #0284c7;padding:12px;border-radius:8px;margin:10px 0}
-.texte{background:#f8fafc;border:1px solid #cbd5e1;padding:12px;border-radius:10px;margin:10px 0;font-style:italic;line-height:1.6}
+.texte{background:#ffffff;border:1px solid #cbd5e1;padding:12px;border-radius:10px;margin:10px 0;font-style:italic;line-height:1.6}
 button{background:#22c55e;border:0;padding:10px 14px;border-radius:10px;font-weight:800;cursor:pointer;margin-right:6px}
-.exo{background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:12px;margin:10px 0}
+.exo{background:#ffffff;border:1px solid #e2e8f0;border-radius:12px;padding:12px;margin:10px 0}
 .corr{display:none;background:#dcfce7;padding:10px;border-radius:8px;margin-top:8px}
 .notion{border-top:1px solid #e5e7eb;padding-top:10px;margin-top:14px}
 .back{background:#111827;color:#fff;margin-bottom:10px}
-textarea{width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:10px;font-size:14px;font-family:inherit}
+textarea{width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:10px;font-size:14px;font-family:inherit;background:#ffffff;color:#111}
 .wordcount{font-size:12px;color:#64748b;margin-top:4px}
 .sujet-bac{border:2px solid #111;padding:0;border-radius:10px;overflow:hidden;margin:10px 0;background:#fff}
 .sujet-bac .entete{background:#111;color:#fff;padding:10px;text-align:center;font-weight:800;font-size:12px;line-height:1.4}
@@ -103,24 +104,24 @@ textarea{width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:10px;fon
 .sujet-bac .source{padding:0 14px 12px;font-size:12px;font-style:italic;text-align:right}
 .sujet-bac .consigne-bac{background:#fef3c7;padding:10px 14px;border-top:2px solid #111;font-size:14px}
 
-/* ===== COURS ===== */
+/* ===== COURS - CORRIGÉ : INTÉRIEUR BLANC CASSÉ + CARTES BLANCHES ===== */
 .cours-card{background:#111827;border:1px solid #1f2937;border-radius:16px;padding:16px;cursor:pointer;transition:.2s}
 .cours-card:hover{transform:translateY(-3px);border-color:#3b82f6;box-shadow:0 10px 25px rgba(0,0,0,.35)}
 .cours-card h3{color:#fff;font-size:18px;margin:0 0 6px}
 .cours-card p{color:#9ca3af;font-size:13px;margin:0}
 .badge-complet{display:inline-block;background:#16a34a;color:#fff;font-size:11px;font-weight:700;padding:4px 8px;border-radius:999px;margin-top:8px}
-.cours-detail{background:#0f172a;color:#e5e7eb;border-radius:16px;padding:20px;max-width:800px;margin:0 auto}
-.cours-detail h2{color:#fff;margin:0 0 10px}
-.cours-detail .pourquoi{background:#1e293b;border-left:4px solid #3b82f6;padding:12px;border-radius:10px;margin-bottom:16px;line-height:1.6}
-.notion-card{background:#ffffff;color:#111827;border-radius:14px;padding:16px;margin-bottom:14px}
+.cours-detail{background:#fdfbf7;color:#111827;border-radius:16px;padding:20px;max-width:800px;margin:0 auto}
+.cours-detail h2{color:#1a3a6a;margin:0 0 10px}
+.cours-detail .pourquoi{background:#ffffff;border-left:4px solid #3b82f6;padding:12px;border-radius:10px;margin-bottom:16px;line-height:1.6;color:#111827;border-top:1px solid #e7e0d0;border-right:1px solid #e7e0d0;border-bottom:1px solid #e7e0d0}
+.notion-card{background:#ffffff;color:#111827;border-radius:14px;padding:16px;margin-bottom:14px;border:1px solid #e7e0d0}
 .notion-card h3{color:#111827;font-size:17px;margin:0 0 8px}
 .notion-card p{line-height:1.7;font-size:15px;margin:0 0 10px}
 .notion-card .exemple{background:#eff6ff;border:1px solid #bfdbfe;padding:10px;border-radius:10px;font-size:14px}
 .points-cles{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
 .points-cles span{background:#f3f4f6;border:1px solid #e5e7eb;color:#111827;font-size:12px;padding:5px 9px;border-radius:999px}
-.exo-card{background:#111827;border:1px solid #374151;border-radius:14px;padding:14px;margin-bottom:12px}
-.exo-card .question{color:#fff;font-weight:700;margin-bottom:8px;line-height:1.6}
-.exo-card .reponse{background:#1f2937;color:#d1d5db;padding:10px;border-radius:10px;line-height:1.6;font-size:14px}
+.exo-card{background:#ffffff;border:1px solid #e7e0d0;border-radius:14px;padding:14px;margin-bottom:12px;color:#111827}
+.exo-card .question{color:#111827;font-weight:700;margin-bottom:8px;line-height:1.6}
+.exo-card .reponse{background:#f0fdf4;color:#111827;padding:10px;border-radius:10px;line-height:1.6;font-size:14px;border:1px solid #bbf7d0}
 .btn-retour{background:#fff;color:#111;border:0;padding:10px 16px;border-radius:999px;font-weight:700;cursor:pointer;margin-bottom:14px}
 
 /* ===== TABLEAUX LISIBLES ===== */
@@ -137,11 +138,22 @@ textarea{width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:10px;fon
 .footer-dev span{color:#FFD06A !important;font-weight:800;letter-spacing:1px}
 .footer-copy{font-size:12px !important;color:#64748b !important;margin:0 !important}
 
-/* ===== MODAL POUR TOUS ===== */
+/* ===== MODAL POUR TOUS - CORRIGÉ : BLANC CASSÉ ===== */
 #myModal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.7);z-index:9999;justify-content:center;align-items:flex-start;overflow-y:auto;padding:20px 10px}
-#myModal .modal-box{background:#FFF9E9;color:#111;width:100%;max-width:750px;padding:20px;border-radius:16px;position:relative}
+#myModal .modal-box{background:#fdfbf7;color:#111;width:100%;max-width:750px;padding:20px;border-radius:16px;position:relative}
 #myModal .modal-close{position:absolute;top:10px;right:12px;font-size:22px;background:none;border:none;cursor:pointer;color:#111}
 #myModal h2{color:#1a3a6a;margin:0 0 10px}
+/* Intérieur du modal : cartes blanches pour bien voir le contenu */
+#myModal .modal-box > div, #myModal .modal-box .card{
+  background:#ffffff !important;
+  color:#111 !important;
+  border:1px solid #e7e0d0 !important;
+  border-radius:12px !important;
+}
+#myModal .modal-box textarea{
+  background:#ffffff !important;
+  color:#111 !important;
+}
 .menu{
   display:flex;
   flex-wrap:wrap;
@@ -172,34 +184,6 @@ body.light .menu button.active{
   color:#111;
 }
 </style>
-</head>
-<body>
-<button id="themeBtn" onclick="switchTheme()">🌙 / ☀️</button>
-
-<h1 class="big-title">VA FALLOIR TAFFER SI TU VEUX LE BAC</h1>
-<h1>📚 Terminale A-B-C-D</h1>
-<div class="sub">Dissertation HG + Dissertation FR + Commentaire + Résumé en haut — Clique sur une carte.</div>
-
-<!-- LE MENU -->
-<div id="menu" class="menu"></div>
-
-<!-- LA LISTE, UNE SEULE FOIS -->
-<div id="list" class="grid"></div>
-<div id="view" style="display:none"></div>
-<!-- LE MODAL -->
-<div id="myModal">
-  <div class="modal-box">
-    <button class="modal-close" onclick="closeModal()">✖</button>
-    <div id="modalContent"></div>
-  </div>
-</div>
-
-<!-- LE FOOTER -->
-<div style="padding:20px; text-align:center;">
-  <a href="index.html" style="color:#fff; margin:0 10px; text-decoration:none;">Accueil</a>
-  <a href="contact.html" style="color:#fff; margin:0 10px; text-decoration:none;">Contact</a>
-</div>
-<script>
 
 // ===== DISSERTATION HISTOIRE-GÉO =====
 const DISSERTATION={id:"dissertation",matiere:"Méthode",titre:"DISSERTATION — Histoire & Géographie",
